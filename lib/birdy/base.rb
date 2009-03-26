@@ -1,19 +1,23 @@
 require 'time' # twitter4r 0.3.0 needs time
+require File.join(File.expand_path(File.dirname(__FILE__)), 'authentication')
+require File.join(File.expand_path(File.dirname(__FILE__)), 'image_download')
 
 module Birdy
 
   class Base
+    include Birdy::Authentication
+    include Birdy::ImageDownload
 
     def initialize
+      @twitter = authenticate
       @alert = GnomeNotifier.new
+      poll
     end
 
     def poll
-      @twitter = Bootstrap.twitter_auth
-
       while true
         tweets.reverse.each do |tweet|
-          image_path = ImageDownload.download(tweet.user.profile_image_url)
+          image_path = download(tweet.user.profile_image_url)
           @alert.show_notice(image_path, tweet.user.name, tweet.text) 
         end
 

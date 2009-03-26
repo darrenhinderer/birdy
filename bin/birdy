@@ -5,7 +5,7 @@ require File.expand_path(
 
 while true
   begin
-    Birdy::Base.new.poll
+    Birdy::Base.new
   rescue => e
     puts "Probably network problems, waiting for a minute to restart"
     puts e

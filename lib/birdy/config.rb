@@ -1,13 +1,14 @@
 module Birdy
 
   class Config
-
     CONFIG_PATH = "#{ENV['HOME']}/.config/birdy/"
     CONFIG_FILE = CONFIG_PATH + "birdy.yml"
 
-    def self.write(login, password)
+    def initialize
       FileUtils.mkdir_p CONFIG_PATH
+    end
 
+    def write(login, password)
       config = {:login => login, :password => password}
 
       File.open(CONFIG_FILE, 'w') do |out|
@@ -15,13 +16,13 @@ module Birdy
       end
     end
     
-    def self.read
+    def read
       YAML.load_file(CONFIG_FILE)
-    rescue 
+    rescue
       {}
     end
 
-    def self.delete
+    def delete
       File.delete(CONFIG_FILE)
     rescue
       nil
