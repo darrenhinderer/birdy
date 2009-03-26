@@ -22,6 +22,8 @@ PROJ.email = 'darren.hinderer@gmail.com'
 PROJ.version = Birdy::VERSION
 PROJ.rubyforge.name = 'hindenburg'
 PROJ.summary = 'See new tweets using Gnome notifications'
+PROJ.history_file = 'README.txt'
+PROJ.ignore_file = '.gitignore'
 
 depend_on "twitter4r"
 depend_on "rbus"
