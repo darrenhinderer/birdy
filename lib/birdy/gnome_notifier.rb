@@ -9,7 +9,7 @@ class GnomeNotifier
   end
 
   def show_notice(image_path, name, message)
-    app_name = 'tweet_watch'
+    app_name = 'birdy'
     replaces_id = 0
     app_icon = image_path
     summary = name
@@ -18,7 +18,8 @@ class GnomeNotifier
     hints = {}
     expire_timeout = DISPLAY_TIME_SECONDS * 1000
 
-    @notify.Notify(app_name, replaces_id, app_icon, summary, body, actions, hints, expire_timeout)
+    @notify.Notify(app_name, replaces_id, app_icon, summary, body, actions, 
+                   hints, expire_timeout)
     sleep DISPLAY_TIME_SECONDS
   end
 

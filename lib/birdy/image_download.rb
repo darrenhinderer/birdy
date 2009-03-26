@@ -4,20 +4,23 @@ module Birdy
     IMAGES = "#{ENV['HOME']}/.config/birdy/images/"
     ONE_DAY = 24 * 60 * 60
 
-    def self.download_image image_url
+    def self.download image_url
+      FileUtils.mkdir_p IMAGES
+
       uri = URI.parse(image_url)
       Net::HTTP.start(uri.host) do |http|
-        resp = http.get(uri.path)
-        filename = IMAGES + File.split(uri.path)[1]
+        response = http.get(uri.path)
+        @filename = IMAGES + File.split(uri.path)[1]
         yesterday = Time.now - ONE_DAY
 
         unless File.exists?(filename) && File.mtime(filename) > yesterday
           open(filename, "wb") do |file|
-            file.write(resp.body)
+            file.write(response.body)
           end
         end
-        return filename
       end
+
+      @filename
     end
 
   end

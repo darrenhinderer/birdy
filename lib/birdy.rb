@@ -1,7 +1,7 @@
 require 'twitter'
 require 'rbus'
 require 'highline'
-require 'logger'
+require 'fileutils'
 
 module Birdy
 

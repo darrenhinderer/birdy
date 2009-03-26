@@ -1,75 +1,41 @@
-# twitter4r 0.3.0 needs time
-require 'time'
+require 'time' # twitter4r 0.3.0 needs time
 
 module Birdy
 
   class Base
 
-    POLL_TIME_MINUTES = 1 
-    CONFIG = "#{ENV['HOME']}/.config/birdy/birdy.yml"
-
     def initialize
       @alert = GnomeNotifier.new
-      @log = Logger.new($stdout)
-      bootstrap_twitter
     end
 
     def poll
-      while true
-        tweets = get_timeline
+      @twitter = Bootstrap.twitter_auth
 
+      while true
         tweets.reverse.each do |tweet|
-          image_path = ImageDownload.download_image(tweet.user.profile_image_url)
-          @log.info tweet.user.name + ": " + tweet.text
+          image_path = ImageDownload.download(tweet.user.profile_image_url)
           @alert.show_notice(image_path, tweet.user.name, tweet.text) 
         end
 
-        sleep POLL_TIME_MINUTES * 60
+        sleep 60
       end
     end
 
-    def get_timeline
-
+    def tweets
       options = {}
-      if @last_id
-        options[:since_id] = @last_id
+      if @last_tweet_id
+        options[:since_id] = @last_tweet_id
       else
         options[:count] = 1
       end
 
-      @log.info "polling"
-      tweets = @twitter.timeline_for(:friends, options) 
-      @last_id = tweets.first.id if tweets.length > 0
-      return tweets
-    end
-
-    def bootstrap_twitter
-      
-      if Config.read.nil?
-        hl = HighLine.new
-        login = hl.ask("login: ")
-        password = hl.ask("password: ") {|q| q.echo = '*'}
-        Config.write(login, password)
+      timeline = @twitter.timeline_for(:friends, options) 
+      if timeline.length > 0
+        @last_tweet_id = timeline.first.id 
       end
 
-      @config = Config.read
-      
-      @twitter = Twitter::Client.new
-      if @twitter.authenticate?(@config[:login], @config[:password])
-        @log.info "Login success!"
-        @twitter = Twitter::Client.new(:login => @config[:login], :password => @config[:password])
-      else
-        @log.info "Login failed, try again."
-        Config.delete
-        bootstrap_twitter
-      end
+      timeline
     end
 
   end
-end
-
-Twitter::Client.configure do |config|
-  config.application_name = 'Birdy'
-  config.application_version = Birdy.version
-  config.application_url = 'http://github.com/darrenhinderer/birdy'
 end

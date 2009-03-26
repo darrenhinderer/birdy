@@ -7,7 +7,7 @@ while true
   begin
     Birdy::Base.new.poll
   rescue => e
-    puts "Network problems, waiting for a minute to restart"
+    puts "Probably network problems, waiting for a minute to restart"
     puts e
     sleep 60 
   end
