@@ -10,15 +10,16 @@ module Birdy
 
     def initialize
       @twitter = authenticate
-      @alert = GnomeNotifier.new
       poll
     end
 
     def poll
+      @alert = GnomeNotifier.new
+
       while true
         tweets.reverse.each do |tweet|
           image_path = download(tweet.user.profile_image_url)
-          @alert.show_notice(image_path, tweet.user.name, tweet.text) 
+          @alert.show(image_path, tweet.user.name, tweet.text) 
         end
 
         sleep 60
@@ -33,7 +34,13 @@ module Birdy
         options[:count] = 1
       end
 
-      timeline = @twitter.timeline_for(:friends, options) 
+      begin
+        timeline = @twitter.timeline_for(:friends, options) 
+      rescue Twitter::RESTError => e
+        puts "Twitter is not responding." + e
+        timeline = []
+      end
+
       if timeline.length > 0
         @last_tweet_id = timeline.first.id 
       end

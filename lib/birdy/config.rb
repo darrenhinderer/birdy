@@ -1,6 +1,6 @@
 module Birdy
-
   class Config
+
     CONFIG_PATH = "#{ENV['HOME']}/.config/birdy/"
     CONFIG_FILE = CONFIG_PATH + "birdy.yml"
 
@@ -29,5 +29,4 @@ module Birdy
     end
 
   end
-
 end

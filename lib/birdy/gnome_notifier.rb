@@ -8,7 +8,7 @@ class GnomeNotifier
       '/org/freedesktop/Notifications')
   end
 
-  def show_notice(image_path, name, message)
+  def show(image_path, name, message)
     app_name = 'birdy'
     replaces_id = 0
     app_icon = image_path
