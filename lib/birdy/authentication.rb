@@ -8,7 +8,6 @@ module Birdy
       @twitter = Twitter::Client.new
 
       while @twitter.authenticate?(@auth[:login], @auth[:password]) == false
-        puts "Login failed"
         @config.delete
 
         hl = HighLine.new
@@ -19,7 +18,6 @@ module Birdy
         @auth = @config.read
       end
    
-      puts "Login success!"
       Twitter::Client.new(:login => @auth[:login], :password => @auth[:password])
     end
 

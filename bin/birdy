@@ -1,7 +1,6 @@
 #!/usr/bin/env ruby
 
-require File.expand_path(
-    File.join(File.dirname(__FILE__), %w[.. lib birdy]))
+require File.expand_path(File.join(File.dirname(__FILE__), %w[.. lib birdy]))
 
 while true
   begin
