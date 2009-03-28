@@ -14,7 +14,7 @@ module Birdy
     end
 
     def poll
-      @alert = GnomeNotifier.new
+      @alert = LinuxNotifier.new
 
       while true
         tweets.reverse.each do |tweet|

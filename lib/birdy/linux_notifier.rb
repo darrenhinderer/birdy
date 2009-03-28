@@ -1,7 +1,6 @@
-class GnomeNotifier
+class LinuxNotifier
 
   DISPLAY_TIME_SECONDS = 5
-  AUTO_LINK_RE = %r{ ( https?:// | www\. ) [^\s<]+ }x 
 
   def initialize
     @notify = RBus.session_bus.get_object('org.freedesktop.Notifications', 
@@ -24,7 +23,7 @@ class GnomeNotifier
   end
 
   def wrap_links(text)
-    text.gsub(AUTO_LINK_RE) do
+    text.gsub(%r{ ( https?:// | www\. ) [^\s<]+ }x) do
       href = $&
       "<a href='" + href + "'>" + href + "</a>"
     end

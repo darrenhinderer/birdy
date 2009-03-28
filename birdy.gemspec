@@ -1,14 +1,14 @@
 Gem::Specification.new do |s|
   s.name = "birdy"
   s.version = "1.0.0"
-  s.summary = "See new tweets using Gnome notifications"
+  s.summary = "Twitter integration with Linux desktop notifications"
   s.authors = "Darren Hinderer"
   s.email = "darren.hinderer@gmail.com"
   s.rubyforge_project = "birdy"
   s.has_rdoc = false
   s.files = ["MIT-LICENSE", "bin/birdy", "lib/birdy.rb", 
              "lib/birdy/authentication.rb", "lib/birdy/base.rb", 
-             "lib/birdy/config.rb", "lib/birdy/gnome_notifier.rb", 
+             "lib/birdy/config.rb", "lib/birdy/linux_notifier.rb", 
              "lib/birdy/image_download.rb"]
   s.executables = ['birdy']
   s.require_paths = ['lib']
