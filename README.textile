@@ -3,4 +3,4 @@ h3. Usage
 # Run birdy and enter your Twitter credentials.
 # Set your system to run /usr/bin/birdy on startup.
 
-!http://github.com/darrenhinderer/birdy/blob/6e92b707bee446699cef12b8af0e378a6fc8a052/birdy.png!
+!http://github.com/darrenhinderer/birdy/raw/6e92b707bee446699cef12b8af0e378a6fc8a052/birdy.png!
