@@ -4,3 +4,9 @@ h3. Usage
 # Set your system to run /usr/bin/birdy on startup.
 
 !http://github.com/darrenhinderer/birdy/raw/6e92b707bee446699cef12b8af0e378a6fc8a052/birdy.png!
+
+h3. Issues
+
+* If the json gem cannot build 'mkmf (LoadError)' try:
+  sudo apt-get install ruby1.8-dev
+* Currently birdy is not compatible with Ruby 1.9. The long story is that json is bundled with 1.9 but twitter4r requires the gem to be installed.
