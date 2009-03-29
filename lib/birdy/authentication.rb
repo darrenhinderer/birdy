@@ -11,7 +11,7 @@ module Birdy
         @config.delete
 
         hl = HighLine.new
-        login = hl.ask("login: ")
+        login = hl.ask("login: ") {|q| q.readline = true }
         password = hl.ask("password: ") {|q| q.echo = '*'}
         @config.write(login, password)
 
